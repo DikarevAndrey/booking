@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Type:</strong>
+  <%= @place.type %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @place.name %>
+</p>
+
+<p>
+  <strong>Min age:</strong>
+  <%= @place.min_age %>
+</p>
+
+<p>
+  <strong>Open hours:</strong>
+  <%= @place.open_hours %>
+</p>
+
+<p>
+  <strong>Avg bill:</strong>
+  <%= @place.avg_bill %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @place.description %>
+</p>
+
+<%= link_to 'Edit', edit_place_path(@place) %> |
+<%= link_to 'Back', places_path %>

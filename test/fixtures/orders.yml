@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  visit_date_time: 2018-04-22 14:09:28
+  guests_count: 1
+  comment: MyText
+  place: one
+  user: one
+
+two:
+  visit_date_time: 2018-04-22 14:09:28
+  guests_count: 1
+  comment: MyText
+  place: two
+  user: two

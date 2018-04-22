@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  type: 
+  name: MyString
+  min_age: 1
+  open_hours: MyString
+  avg_bill: 1
+  description: MyText
+
+two:
+  type: 
+  name: MyString
+  min_age: 1
+  open_hours: MyString
+  avg_bill: 1
+  description: MyText

@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  points: 1
+  comment: MyText
+  place: one
+  user: one
+
+two:
+  points: 1
+  comment: MyText
+  place: two
+  user: two

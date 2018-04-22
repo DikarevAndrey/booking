@@ -13,3 +13,12 @@
 //= require rails-ujs
 //= require turbolinks
 //= require_tree .
+//= require jquery3
+//= require popper
+//= require bootstrap-sprockets
+//Fade out flash messages
+$(document).on('turbolinks:load', function() {
+  $(".flash-message").fadeOut( 4000, function() {
+    $(this).remove(); 
+  });
+});

@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  beer: false
+  smoke_allowed: false
+  cocktails: false
+  hookah: false
+  place: one
+
+two:
+  beer: false
+  smoke_allowed: false
+  cocktails: false
+  hookah: false
+  place: two
