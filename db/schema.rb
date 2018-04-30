@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180422110928) do
+ActiveRecord::Schema.define(version: 20180430155157) do
+
+  create_table "administrators", force: :cascade do |t|
+    t.integer "place_id"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["place_id"], name: "index_administrators_on_place_id"
+    t.index ["user_id"], name: "index_administrators_on_user_id"
+  end
 
   create_table "cities", force: :cascade do |t|
     t.string "name"
@@ -74,7 +83,7 @@ ActiveRecord::Schema.define(version: 20180422110928) do
   end
 
   create_table "places", force: :cascade do |t|
-    t.string "type", null: false
+    t.string "kind", null: false
     t.string "name", null: false
     t.integer "min_age", default: 0, null: false
     t.string "open_hours"

@@ -1,6 +1,7 @@
 class PlacesController < ApplicationController
   before_action :set_place, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, except: [:index, :show]
+  before_action :check_if_admin, only: [:new, :edit]
   # GET /places
   # GET /places.json
   def index
@@ -14,11 +15,28 @@ class PlacesController < ApplicationController
 
   # GET /places/new
   def new
+    if Administrator.exists?(user_id: current_user.id)
+      redirect_to admin_home_url, :flash => { :error => "У Вас уже есть заведение!" }
+    end
+
     @place = Place.new
+    @place.build_location.build_city
+    @place.build_feature
   end
 
   # GET /places/1/edit
   def edit
+    if @place.id != Administrator.find_by(user_id: current_user.id).place_id
+      redirect_to admin_home_url, :flash => { :error => "Вы не можете редактировать это заведение!" }
+    end
+
+    if !@place.location
+      @place.build_location.build_city
+    end
+
+    if !@place.feature
+      @place.build_feature
+    end
   end
 
   # POST /places
@@ -28,6 +46,8 @@ class PlacesController < ApplicationController
 
     respond_to do |format|
       if @place.save
+        Administrator.create(user_id: current_user.id, place_id: @place.id)
+        Rating.create(place_id: @place.id)
         format.html { redirect_to @place, notice: 'Place was successfully created.' }
         format.json { render :show, status: :created, location: @place }
       else
@@ -69,6 +89,6 @@ class PlacesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def place_params
-      params.require(:place).permit(:type, :name, :min_age, :open_hours, :avg_bill, :description)
+      params.require(:place).permit(:kind, :name, :min_age, :open_hours, :avg_bill, :description, location_attributes: [:address, :subway, city_attributes: [:name]], feature_attributes: [:beer, :smoke_allowed, :cocktails, :hookah])
     end
 end

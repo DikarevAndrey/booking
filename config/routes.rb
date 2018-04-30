@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  get 'admin/add'
+
+  get 'admin/edit'
+
+  get 'admin/bookings'
+
+  get 'admin/home'
+
   root 'places#index'
   get 'users/show'
   devise_for :users

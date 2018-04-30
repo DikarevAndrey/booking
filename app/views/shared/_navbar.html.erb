@@ -27,6 +27,12 @@
         <li class="nav-item navbar-text text-success">
           <%= "Привет, " %> <%= current_user.email %>
         </li>
+        
+        <% if current_user.admin? %>  
+          <li class="nav-item">
+            <%= link_to "Заведение", admin_home_url, :class => 'nav-link' %>
+          </li>
+        <% end %>
 
         <li class="nav-item">
           <%= link_to "Профиль", current_user, :class => 'nav-link' %>
@@ -46,7 +52,7 @@
           <%= link_to "Вход", new_user_session_path, :class => 'nav-link' %>
         </li>
 
-      <% end  %>
+      <% end %>
 
     </ul>
 

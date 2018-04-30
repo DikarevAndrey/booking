@@ -1,0 +1,40 @@
+<div class="container">
+  <div class="card text-center">
+    <div class="card-header">
+      <h1><%= @place.name %></h1>
+    </div>
+    <div class="card-body">
+      <h5 class="card-title"><%= @place.description %></h5>
+      <p class="card-text">
+        <%= @place.location.address %>, <%= @place.location.subway %>
+        <hr>
+        <% if @place.feature.beer %>
+          <input type="checkbox" checked disabled>Пиво
+        <% else %>
+          <input type="checkbox"  disabled>Пиво
+        <% end %>
+        <% if @place.feature.smoke_allowed %>
+          <input type="checkbox" checked disabled>Курение разрешено
+        <% else %>
+          <input type="checkbox"  disabled>Курение разрешено
+        <% end %>
+        <% if @place.feature.cocktails %>
+          <input type="checkbox" checked disabled>Коктейли
+        <% else %>
+          <input type="checkbox"  disabled>Коктейли
+        <% end %>
+        <% if @place.feature.hookah %>
+          <input type="checkbox" checked disabled>Кальян
+        <% else %>
+          <input type="checkbox"  disabled>Кальян
+        <% end %>
+      </p>
+      <a href="<%= admin_edit_url %>" class="btn btn-primary">Редактировать данные</a>
+    </div>
+    <div class="card-footer text-muted">
+      Рейтинг: <%= @place.rating.points %>
+    </div>
+  </div>
+  Акции
+  Отзывы
+</div>
