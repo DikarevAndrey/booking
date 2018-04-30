@@ -30,11 +30,41 @@
         <% end %>
       </p>
       <a href="<%= admin_edit_url %>" class="btn btn-primary">Редактировать данные</a>
+      <a href="<%= admin_bookings_url %>" class="btn btn-primary">Бронирования</a>
     </div>
     <div class="card-footer text-muted">
       Рейтинг: <%= @place.rating.points %>
     </div>
   </div>
-  Акции
-  Отзывы
+  <hr>
+  <h1>
+    Акции
+    <small class="text-muted"><%= link_to "Новая акция", new_offer_path %></small>
+  </h1>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Название</th>
+        <th scope="col">Доступность</th>
+        <th scope="col">Описание</th>
+      </tr>
+    </thead>
+    <% @offers.each_with_index do |offer, index| %>
+      <tr>
+        <td><%= index + 1 %></td>
+        <td><%= offer.name %> <%= link_to "Редактировать", edit_offer_path(offer.id) %></td>
+        <td>
+          <% if offer.is_active %>
+            Акция активна
+          <% else %>
+            Акция не активна
+          <% end %>
+        </td>
+        <td><%= offer.content %></td>
+      </tr>
+    <% end %>
+  </table>
+  <hr>
+  <h1>Отзывы</h1>
 </div>

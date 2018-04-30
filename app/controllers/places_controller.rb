@@ -16,7 +16,7 @@ class PlacesController < ApplicationController
   # GET /places/new
   def new
     if Administrator.exists?(user_id: current_user.id)
-      redirect_to admin_home_url, :flash => { :error => "У Вас уже есть заведение!" }
+      redirect_to admin_home_url, :flash => { :error => "Ваше заведение уже зарегистрировано." }
     end
 
     @place = Place.new
@@ -27,7 +27,7 @@ class PlacesController < ApplicationController
   # GET /places/1/edit
   def edit
     if @place.id != Administrator.find_by(user_id: current_user.id).place_id
-      redirect_to admin_home_url, :flash => { :error => "Вы не можете редактировать это заведение!" }
+      redirect_to admin_home_url, :flash => { :error => "У вас нет доступа к этому заведению!" }
     end
 
     if !@place.location
