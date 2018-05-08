@@ -2,35 +2,34 @@
 
 <h1>Places</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Kind</th>
-      <th>Name</th>
-      <th>Min age</th>
-      <th>Open hours</th>
-      <th>Avg bill</th>
-      <th>Description</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
+<div class="container">
+  <div class="row">
     <% @places.each do |place| %>
-      <tr>
-        <td><%= place.kind %></td>
-        <td><%= place.name %></td>
-        <td><%= place.min_age %></td>
-        <td><%= place.open_hours %></td>
-        <td><%= place.avg_bill %></td>
-        <td><%= place.description %></td>
-        <td><%= link_to 'Show', place %></td>
-        <td><%= link_to 'Edit', edit_place_path(place) %></td>
-        <td><%= link_to 'Destroy', place, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+      <div class="col-md-4">
+        <div class="card mb-4 box-shadow">
+          <div class="card-body">
+            <p class="card-text">Тип заведения: <%= place.kind %></p>
+            <p class="card-text">Название: <%= place.name %></p>
+            <p class="card-text">Минимальный возраст: <%= place.min_age %></p>
+            <p class="card-text">Часы работы: <%= place.open_hours %></p>
+            <p class="card-text">Средний чек: <%= place.avg_bill %></p>
+            <p class="card-text">Описание: <%= place.description %></p>
+            <p class="card-text">Рейтинг: <%= place.rating %></p>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="btn-group">
+                <%= link_to 'Show', place, class: "btn btn-primary" %>
+                <% if signed_in? && place.id == Administrator.find_by(user_id: current_user.id).place_id %>
+                  <%= link_to 'Edit', edit_place_path(place), class: "btn btn-warning" %>
+                  <%= link_to 'Destroy', place, method: :delete, data: {confirm: 'Are you sure?'}, class: "btn btn-danger" %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     <% end %>
-  </tbody>
-</table>
+  </div>
+</div>
 
 <br>
 
