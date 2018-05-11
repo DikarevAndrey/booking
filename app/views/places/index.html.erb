@@ -1,0 +1,37 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Places</h1>
+
+<div class="container">
+  <div class="row">
+    <% @places.each do |place| %>
+      <div class="col-md-4">
+        <div class="card mb-4 box-shadow">
+          <div class="card-body">
+            <p class="card-text">Тип заведения: <%= place.kind %></p>
+            <p class="card-text">Название: <%= place.name %></p>
+            <p class="card-text">Минимальный возраст: <%= place.min_age %></p>
+            <p class="card-text">Часы работы: <%= place.open_hours %></p>
+            <p class="card-text">Средний чек: <%= place.avg_bill %></p>
+            <p class="card-text">Описание: <%= place.description %></p>
+            <p class="card-text">Рейтинг: <%= place.rating.points %></p>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="btn-group">
+                <%= link_to 'Show', place, class: "btn btn-primary" %>
+                <% if signed_in? && place.id == Administrator.find_by(user_id: current_user.id).place_id %>
+                  <%= link_to 'Edit', edit_place_path(place), class: "btn btn-warning" %>
+                  <%= link_to 'Destroy', place, method: :delete, data: {confirm: 'Are you sure?'}, class: "btn btn-danger" %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<br>
+
+<%= link_to 'New Place', new_place_path %>
+
