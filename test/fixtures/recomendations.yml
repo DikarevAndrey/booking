@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  fav_type: MyString
+  fav_cuisine: MyString
+  user: one
+  place: one
+
+two:
+  fav_type: MyString
+  fav_cuisine: MyString
+  user: two
+  place: two

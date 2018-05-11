@@ -1,0 +1,83 @@
+<%= form_with(model: place, local: true) do |form| %>
+  <% if place.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(place.errors.count, "error") %> prohibited this place from being saved:</h2>
+
+      <ul>
+      <% place.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :kind %>
+    <%= form.text_field :kind, id: :place_kind %>
+  </div>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, id: :place_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :min_age %>
+    <%= form.number_field :min_age, id: :place_min_age %>
+  </div>
+
+  <div class="field">
+    <%= form.label :open_hours %>
+    <%= form.text_field :open_hours, id: :place_open_hours %>
+  </div>
+
+  <div class="field">
+    <%= form.label :avg_bill %>
+    <%= form.number_field :avg_bill, id: :place_avg_bill %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description, id: :place_description %>
+  </div>
+
+  <%= form.fields_for :location do |location| %>
+    <div class="field">
+      <%= form.label :address %>
+      <%= location.text_field :address %>
+    </div>
+    <div class="field">
+      <%= form.label :subway %>
+      <%= location.text_field :subway %>
+    </div>
+    <%= location.fields_for :city do |city| %>
+      <div class="field">
+        <%= form.label :city %>
+        <%= city.text_field :name %>
+      </div>
+    <% end %>
+  <% end %> 
+  
+  <%= form.fields_for :feature do |feature| %>
+    <div class="field">
+      <%= form.label 'Пиво' %>
+      <%= feature.check_box :beer %>
+    </div>
+    <div class="field">
+      <%= form.label 'Курение разрешено' %>
+      <%= feature.check_box :smoke_allowed %>
+    </div>
+    <div class="field">
+      <%= form.label 'Коктейли' %>
+      <%= feature.check_box :cocktails %>
+    </div>
+    <div class="field">
+      <%= form.label 'Кальян' %>
+      <%= feature.check_box :hookah %>
+    </div>
+  <% end %> 
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
