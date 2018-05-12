@@ -1,6 +1,4 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Places</h1>
+<h1>Заведения</h1>
 
 <div class="container">
   <div class="row">
@@ -17,10 +15,9 @@
             <p class="card-text">Рейтинг: <%= place.rating.points %></p>
             <div class="d-flex justify-content-between align-items-center">
               <div class="btn-group">
-                <%= link_to 'Show', place, class: "btn btn-primary" %>
-                <% if signed_in? && place.id == Administrator.find_by(user_id: current_user.id).place_id %>
-                  <%= link_to 'Edit', edit_place_path(place), class: "btn btn-warning" %>
-                  <%= link_to 'Destroy', place, method: :delete, data: {confirm: 'Are you sure?'}, class: "btn btn-danger" %>
+                <%= link_to 'Показать', place, class: "btn btn-primary" %>
+                <% if signed_in? && current_user.admin == true && place.id == Administrator.find_by(user_id: current_user.id).place_id %>
+                  <%= link_to 'Редактировать', edit_place_path(place), class: "btn btn-warning" %>
                 <% end %>
               </div>
             </div>
@@ -30,8 +27,4 @@
     <% end %>
   </div>
 </div>
-
 <br>
-
-<%= link_to 'New Place', new_place_path %>
-

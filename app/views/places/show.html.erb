@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <p>
   <strong>Kind:</strong>
   <%= @place.kind %>
@@ -30,7 +28,11 @@
   <%= @place.description %>
 </p>
 
-<%= link_to 'Забронировать', new_order_path, class: "btn btn-warning" %>
+<% if signed_in? && current_user.admin == false %>
+  <%= link_to 'Забронировать', new_order_path(:place_id => @place.id), class: "btn btn-warning" %>
+<% end %>
 
-<%= link_to 'Edit', edit_place_path(@place), class:"btn btn-warning" %>
-<%= link_to 'Back', places_path, class:"btn btn-primary" %>
+<% if signed_in? && current_user.admin == true && @place.id == Administrator.find_by(user_id: current_user.id).place_id %>
+  <%= link_to 'Редактировать', edit_place_path(@place), class:"btn btn-warning" %>
+<% end %>
+<!-- <%= link_to 'Back', places_path, class:"btn btn-primary" %> -->

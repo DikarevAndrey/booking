@@ -1,5 +1,5 @@
 <h1>New Order</h1>
 
-<%= render 'form', orders: @order %>
+<%= render 'form', orders: @order, place_id: @place.id %>
 
-<%= link_to 'Back', places_path %>
+<%= link_to 'Назад', places_path %>

@@ -1,6 +1,4 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Offers</h1>
+<h1>Акции</h1>
 
 <table>
   <thead>
@@ -12,9 +10,9 @@
   <tbody>
     <% @offers.each do |offer| %>
       <tr>
-        <td><%= link_to 'Show', offer %></td>
-        <td><%= link_to 'Edit', edit_offer_path(offer) %></td>
-        <td><%= link_to 'Destroy', offer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Показать', offer %></td>
+        <td><%= link_to 'Редактировать', edit_offer_path(offer) %></td>
+        <td><%= link_to 'Удалить', offer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -22,4 +20,4 @@
 
 <br>
 
-<%= link_to 'New Offer', new_offer_path %>
+<%= link_to 'Новая акция', new_offer_path %>

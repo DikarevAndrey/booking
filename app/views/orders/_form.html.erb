@@ -1,20 +1,23 @@
 <%= form_with(model: orders, local: true) do |form| %>
-
-  <div class="hidden">
-    <form id="form">
-      <div class="field">
-        <%= form.label 'Дата и время заказа' %>
-        <%= form.datetime_field :visit_date_time %>
-      </div>
-      <div class="field">
-        <%= form.label 'Комментарий к заказу' %>
-        <%= form.text_field :comment %>
-      </div>
-      <div class="field">
-        <%= form.label 'Количество гостей' %>
-        <%= form.number_field :guests_count %>
-      </div>
-      <button>Забронировать</button>
-    </form>
+  <div class="field">
+    <%= form.label 'Дата и время заказа' %>
+    <%= form.datetime_field :visit_date_time, :required => true %>
   </div>
+
+  <div class="field">
+    <%= form.label 'Комментарий к заказу' %>
+    <%= form.text_field :comment, :required => true %>
+  </div>
+
+  <div class="field">
+    <%= form.label 'Количество гостей' %>
+    <%= form.number_field :guests_count, :required => true %>
+  </div>
+
+  <%= form.hidden_field :place_id, :value => params[:place_id].to_i %>
+
+  <div class="actions">
+    <%= form.submit "Забронировать" %>
+  </div>
+  <!-- <button>Забронировать</button> -->
 <% end %>
