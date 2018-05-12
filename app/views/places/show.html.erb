@@ -1,30 +1,35 @@
 <p>
-  <strong>Kind:</strong>
-  <%= @place.kind %>
+  <strong>Основная кухня:</strong>
+  <%= @place.cuisine.name %>
 </p>
 
 <p>
-  <strong>Name:</strong>
+  <strong>Вид заведения:</strong>
+  <%= @place.kind.name %>
+</p>
+
+<p>
+  <strong>Название:</strong>
   <%= @place.name %>
 </p>
 
 <p>
-  <strong>Min age:</strong>
+  <strong>Возрастные ограничения:</strong>
   <%= @place.min_age %>
 </p>
 
 <p>
-  <strong>Open hours:</strong>
+  <strong>Часы работы:</strong>
   <%= @place.open_hours %>
 </p>
 
 <p>
-  <strong>Avg bill:</strong>
+  <strong>Средний чек:</strong>
   <%= @place.avg_bill %>
 </p>
 
 <p>
-  <strong>Description:</strong>
+  <strong>Описание:</strong>
   <%= @place.description %>
 </p>
 
@@ -35,4 +40,3 @@
 <% if signed_in? && current_user.admin == true && @place.id == Administrator.find_by(user_id: current_user.id).place_id %>
   <%= link_to 'Редактировать', edit_place_path(@place), class:"btn btn-warning" %>
 <% end %>
-<!-- <%= link_to 'Back', places_path, class:"btn btn-primary" %> -->

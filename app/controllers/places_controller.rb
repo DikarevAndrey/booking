@@ -22,6 +22,7 @@ class PlacesController < ApplicationController
     @place = Place.new
     @place.build_location.build_city
     @place.build_feature
+    @place.build_kind
   end
 
   # GET /places/1/edit
@@ -36,6 +37,10 @@ class PlacesController < ApplicationController
 
     if !@place.feature
       @place.build_feature
+    end
+
+    if !@place.kind
+      @place.build_kind
     end
   end
 
@@ -89,6 +94,6 @@ class PlacesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def place_params
-      params.require(:place).permit(:kind, :name, :min_age, :open_hours, :avg_bill, :description, location_attributes: [:address, :subway, city_attributes: [:name]], feature_attributes: [:beer, :smoke_allowed, :cocktails, :hookah])
+      params.require(:place).permit(:kind_id, :cuisine_id, :name, :min_age, :open_hours, :avg_bill, :description, location_attributes: [:address, :subway, city_attributes: [:name]], feature_attributes: [:beer, :smoke_allowed, :cocktails, :hookah])
     end
 end

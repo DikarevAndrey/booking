@@ -6,9 +6,10 @@
       <div class="col-md-4">
         <div class="card mb-4 box-shadow">
           <div class="card-body">
-            <p class="card-text">Тип заведения: <%= place.kind %></p>
+            <p class="card-text">Основная кухня: <%= place.cuisine.name %></p>
+            <p class="card-text">Вид заведения: <%= place.kind.name %></p>
             <p class="card-text">Название: <%= place.name %></p>
-            <p class="card-text">Минимальный возраст: <%= place.min_age %></p>
+            <p class="card-text">Возрастные ограничения: <%= place.min_age %></p>
             <p class="card-text">Часы работы: <%= place.open_hours %></p>
             <p class="card-text">Средний чек: <%= place.avg_bill %></p>
             <p class="card-text">Описание: <%= place.description %></p>

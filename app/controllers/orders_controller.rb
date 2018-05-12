@@ -35,9 +35,10 @@ class OrdersController < ApplicationController
       redirect_to root_path and return
     end
     @place = Place.find(params[:place_id].to_i)
+    puts @place
   end
 
   def order_params
-    params.require(:order).permit(:visit_date_time, :comment, :guests_count)
+    params.require(:order).permit(:visit_date_time, :comment, :guests_count, :place_id)
   end
 end

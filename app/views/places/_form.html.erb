@@ -10,11 +10,18 @@
       </ul>
     </div>
   <% end %>
-
+  
   <div class="field">
-    <%= form.label :kind %>
-    <%= form.text_field :kind, id: :place_kind %>
+    <%= form.label :Кухня %>
+    <%= form.collection_select :cuisine_id, Cuisine.all, :id, :name %>
   </div>
+
+  <%= form.fields_for :kind do |kind| %>
+    <div class="field">
+      <%= form.label :Вид_заведения %>
+      <%= form.collection_select :kind_id, Kind.all, :id, :name %>
+    </div>
+  <% end %>
 
   <div class="field">
     <%= form.label :name %>

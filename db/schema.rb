@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180430155157) do
+ActiveRecord::Schema.define(version: 20180512184003) do
 
   create_table "administrators", force: :cascade do |t|
     t.integer "place_id"
@@ -33,11 +33,6 @@ ActiveRecord::Schema.define(version: 20180430155157) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "cuisines_places", id: false, force: :cascade do |t|
-    t.integer "place_id", null: false
-    t.integer "cuisine_id", null: false
-  end
-
   create_table "features", force: :cascade do |t|
     t.boolean "beer", default: false
     t.boolean "smoke_allowed", default: false
@@ -47,6 +42,12 @@ ActiveRecord::Schema.define(version: 20180430155157) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["place_id"], name: "index_features_on_place_id"
+  end
+
+  create_table "kinds", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "locations", force: :cascade do |t|
@@ -83,7 +84,6 @@ ActiveRecord::Schema.define(version: 20180430155157) do
   end
 
   create_table "places", force: :cascade do |t|
-    t.string "kind", null: false
     t.string "name", null: false
     t.integer "min_age", default: 0, null: false
     t.string "open_hours"
@@ -91,6 +91,10 @@ ActiveRecord::Schema.define(version: 20180430155157) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "kind_id"
+    t.integer "cuisine_id"
+    t.index ["cuisine_id"], name: "index_places_on_cuisine_id"
+    t.index ["kind_id"], name: "index_places_on_kind_id"
   end
 
   create_table "ratings", force: :cascade do |t|

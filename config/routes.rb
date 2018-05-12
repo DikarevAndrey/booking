@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'search/list'
+
   get 'offer/new'
 
   get 'offer/edit'
@@ -11,6 +13,8 @@ Rails.application.routes.draw do
 
   get 'admin/home'
 
+  get 'search/list'
+  
   root 'places#index'
   get 'users/show'
   devise_for :users
