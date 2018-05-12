@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180512184003) do
+ActiveRecord::Schema.define(version: 20180512191232) do
 
   create_table "administrators", force: :cascade do |t|
     t.integer "place_id"
@@ -107,12 +107,14 @@ ActiveRecord::Schema.define(version: 20180512184003) do
   end
 
   create_table "recomendations", force: :cascade do |t|
-    t.string "fav_type"
-    t.string "fav_cuisine"
     t.integer "user_id"
     t.integer "place_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "kind_id"
+    t.integer "cuisine_id"
+    t.index ["cuisine_id"], name: "index_recomendations_on_cuisine_id"
+    t.index ["kind_id"], name: "index_recomendations_on_kind_id"
     t.index ["place_id"], name: "index_recomendations_on_place_id"
     t.index ["user_id"], name: "index_recomendations_on_user_id"
   end

@@ -1,0 +1,14 @@
+<div class="container">
+  <h1>Recomendation#show</h1>
+  <p>Find me in app/views/recomendation/show.html.erb</p>
+  <% if !@user_recomendation %>
+    <p>У вас еще не было бронирований. Чтобы получать рекомендации, резервируйте столики.</p>
+  <% else %>
+    <%= @user_recomendation.kind.name %>
+    <br>
+    <%= @user_recomendation.cuisine.name %>
+    <br>
+    <%= @user_recomendation.place.name %>
+    <br>
+  <% end %>
+</div>
