@@ -31,7 +31,6 @@ class PlacesController < ApplicationController
   # GET /places/1.json
   def show
     @reviews = Review.where(:place_id => @place.id).order(created_at: :desc)
-    puts @reviews
   end
 
   def new_review

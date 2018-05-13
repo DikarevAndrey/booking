@@ -73,5 +73,14 @@
     <% end %>
   </table>
   <hr>
-  <h1>Отзывы</h1>
+  <h1>Отзывы:</h1>
+    <% @reviews.each do |review| %>
+      <div class="card mb-4">
+        <div class="card-header"><strong>Рейтинг:</strong> <%= review.points %></div>
+        <div class="card-body">
+          <p class="card-text"><strong>Текст отзыва:</strong> <%= review.comment %></p>
+          <strong>Автор:</strong> <%= link_to review.user.email, review.user %>
+        </div>
+      </div>
+    <% end %>
 </div>

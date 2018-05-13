@@ -80,7 +80,7 @@
   </div>
   <hr>
   <div class="container">
-    <% if signed_in? %>
+    <% if signed_in? && !current_user.admin && Order.exists?(:place_id => @place.id, :user_id => current_user.id) && !Review.exists?(:place_id => @place.id, :user_id => current_user.id) %>
       <h3>Оставить отзыв:</h3>
       <form action="new_review?place_id=<%= @place.id %>" method="post">
         <div class="form-group row">
@@ -103,8 +103,8 @@
         </div>
         <button type="submit" class="btn btn-primary">Отправить</button>
       </form>
+      <hr>
     <% end %>
-    <hr>
     <h3>Отзывы:</h3>
     <% @reviews.each do |review| %>
       <div class="card mb-4">
