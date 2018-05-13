@@ -1,7 +1,7 @@
 <%= form_with(model: orders, local: true) do |form| %>
   <div class="field">
     <%= form.label 'Дата и время посещения' %>
-    <%= form.datetime_field :visit_date_time, :required => true %>
+    <%= form.datetime_field :visit_date_time, min: Date.today, :required => true %>
   </div>
 
   <div class="field">
