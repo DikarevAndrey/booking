@@ -1,42 +1,87 @@
-<p>
-  <strong>Основная кухня:</strong>
-  <%= @place.cuisine.name %>
-</p>
+<div class="container">
+  <p>
+    <strong>Основная кухня:</strong>
+    <%= @place.cuisine.name %>
+  </p>
 
-<p>
-  <strong>Вид заведения:</strong>
-  <%= @place.kind.name %>
-</p>
+  <p>
+    <strong>Звезды Мишлен:</strong>
+    <%= @place.rating.stars %>
+  </p>
 
-<p>
-  <strong>Название:</strong>
-  <%= @place.name %>
-</p>
+  <p>
+    <strong>Вид заведения:</strong>
+    <%= @place.kind.name %>
+  </p>
 
-<p>
-  <strong>Возрастные ограничения:</strong>
-  <%= @place.min_age %>
-</p>
+  <p>
+    <strong>Название:</strong>
+    <%= @place.name %>
+  </p>
 
-<p>
-  <strong>Часы работы:</strong>
-  <%= @place.open_hours %>
-</p>
+  <p>
+    <strong>Возрастные ограничения:</strong>
+    <%= @place.min_age %>
+  </p>
 
-<p>
-  <strong>Средний чек:</strong>
-  <%= @place.avg_bill %>
-</p>
+  <p>
+    <strong>Часы работы:</strong>
+    <%= @place.open_hours %>
+  </p>
 
-<p>
-  <strong>Описание:</strong>
-  <%= @place.description %>
-</p>
+  <p>
+    <strong>Средний чек:</strong>
+    <%= @place.avg_bill %>
+  </p>
 
-<% if signed_in? && current_user.admin == false %>
-  <%= link_to 'Забронировать', new_order_path(:place_id => @place.id), class: "btn btn-warning" %>
-<% end %>
+  <p>
+    <strong>Описание:</strong>
+    <%= @place.description %>
+  </p>
+  <hr>
+  <% if signed_in? && current_user.admin == false %>
+    <%= link_to 'Забронировать', new_order_path(:place_id => @place.id), class: "btn btn-warning" %>
+  <% end %>
 
-<% if signed_in? && current_user.admin == true && @place.id == Administrator.find_by(user_id: current_user.id).place_id %>
-  <%= link_to 'Редактировать', edit_place_path(@place), class:"btn btn-warning" %>
-<% end %>
+  <% if signed_in? && current_user.admin == true && @place.id == Administrator.find_by(user_id: current_user.id).place_id %>
+    <%= link_to 'Редактировать', edit_place_path(@place), class:"btn btn-warning" %>
+  <% end %>
+  <hr>
+  <div class="container">
+    <% if signed_in? %>
+      <h3>Оставить отзыв:</h3>
+      <form action="new_review?place_id=<%= @place.id %>" method="post">
+        <div class="form-group row">
+          <label for="comment" class="col-lg-2 col-form-label">Комментарий</label>
+          <div class="col-lg-10">
+            <textarea name="comment" type="text" class="form-control" id="comment" placeholder="Текст отзыва" rows="3" required="true"></textarea>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="rating" class="col-lg-2 col-form-label">Рейтинг</label>
+          <div class="col-lg-10">
+            <select name="points" class="form-control" id="rating" required="true">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+            </select>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Отправить</button>
+      </form>
+    <% end %>
+    <hr>
+    <h3>Отзывы:</h3>
+    <% @reviews.each do |review| %>
+      <div class="card mb-4">
+        <div class="card-header"><strong>Рейтинг:</strong> <%= review.points %></div>
+        <div class="card-body">
+          <p class="card-text"><strong>Текст отзыва:</strong> <%= review.comment %></p>
+          <strong>Автор:</strong> <%= link_to review.user.email, review.user %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

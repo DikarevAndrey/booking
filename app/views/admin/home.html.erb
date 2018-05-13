@@ -28,6 +28,11 @@
         <% else %>
           <input type="checkbox"  disabled>Кальян
         <% end %>
+        <% if @place.feature.strong_alco %>
+          <input type="checkbox" checked disabled>Крепкий алкоголь
+        <% else %>
+          <input type="checkbox"  disabled>Крепкий алкоголь
+        <% end %>
       </p>
       <a href="<%= admin_edit_url %>" class="btn btn-primary">Редактировать данные</a>
       <a href="<%= admin_bookings_url %>" class="btn btn-primary">Бронирования</a>

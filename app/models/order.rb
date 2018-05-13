@@ -5,7 +5,6 @@ class Order < ApplicationRecord
   after_create :update_recomendation
 
   def update_recomendation
-    puts 'fired'
     recomendation = Recomendation.where(:user_id => self.user_id).first_or_create
       recomendation.place_id = Order.where(:user_id => self.user_id).select(:place_id).group(:place_id).having("count(*) > 0").size.invert.max&.last.to_i
       puts recomendation.place_id

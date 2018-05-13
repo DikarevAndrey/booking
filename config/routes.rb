@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  root 'places#index'
+  
+  post 'places/new_review' 
+
   get 'recomendation/show'
 
   get 'search/list'
@@ -16,11 +20,9 @@ Rails.application.routes.draw do
   get 'admin/home'
 
   get 'search/list'
-  
-  get 'recomendation/show'
 
-  root 'places#index'
   get 'users/show'
+
   devise_for :users
   resources :places
   resources :users

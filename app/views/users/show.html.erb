@@ -1,3 +1,47 @@
-<h1>Users#show</h1>
-<p>Здесь будет информация о юзере. Его профиль и история заказов.
-Доступно зарегистрированным пользователям</p>
+<div class="container">
+  <h1>Профиль пользователя</h1>
+  <h3>Электронаня почта: <%= @user.email %></h3>
+  <h3>Зарегистрирован: <%= @user.created_at.to_date %></h3>
+  <% if @user.admin %>
+    <h3>Администратор
+    <% if Administrator.exists?(:user_id => @user.id) %>
+      <%= link_to Administrator.find_by(:user_id => @user.id).place.name, Administrator.find_by(:user_id => @user.id).place %>
+    <% end %></h3>
+  <% else %>
+    <h3>Сделал заказов: <%= Order.where(:user_id => @user.id).count %></h3>
+  <% end %>
+  <hr>
+  <% if @bookings != [] %>
+    <h1>Ваши текущие и прошедшие заказы</h1>
+    <table class="table table-hover table-striped table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Заведение</th>
+          <th scope="col">Время посещения</th>
+          <th scope="col">Количество гостей</th>
+          <th scope="col">Комментарий</th>
+        </tr>
+      </thead>
+      <% @bookings.each_with_index do |booking, index| %>
+        <% if DateTime.now.to_date > booking.visit_date_time.to_date %> 
+          <tr class="table-success">
+            <th scope="row"><%= index + 1 %></th>
+            <td><%= link_to booking.place.name, booking.place %></td>
+            <td><%= booking.visit_date_time.to_date %>, <%= booking.visit_date_time.strftime('%H:%M') %></td>
+            <td><%= booking.guests_count %></td>
+            <td><%= booking.comment %></td>
+          </tr>
+        <% else %>
+          <tr>
+            <th scope="row"><%= index + 1 %></th>
+            <td><%= link_to booking.place.name, booking.place %></td>
+            <td><%= booking.visit_date_time.to_date %>, <%= booking.visit_date_time.strftime('%H:%M') %></td>
+            <td><%= booking.guests_count %></td>
+            <td><%= booking.comment %></td>
+          </tr>
+        <% end %>
+      <% end %>
+    </table>
+  <% end %>
+</div>

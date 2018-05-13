@@ -22,6 +22,13 @@
       <%= form.collection_select :kind_id, Kind.all, :id, :name %>
     </div>
   <% end %>
+  
+  <%= form.fields_for :rating do |rating| %>
+    <div class="field">
+      <%= form.label :Звезды_Мишлен %>
+      <%= rating.select(:stars, options_for_select([0, 1, 2, 3, 4, 5])) %>
+    </div>
+  <% end %>
 
   <div class="field">
     <%= form.label :name %>
@@ -81,6 +88,10 @@
     <div class="field">
       <%= form.label 'Кальян' %>
       <%= feature.check_box :hookah %>
+    </div>
+    <div class="field">
+      <%= form.label 'Крепкий алкоголь' %>
+      <%= feature.check_box :strong_alco %>
     </div>
   <% end %> 
 

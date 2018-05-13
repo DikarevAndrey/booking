@@ -1,16 +1,37 @@
 class PlacesController < ApplicationController
+  skip_before_action :verify_authenticity_token
   before_action :set_place, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, except: [:index, :show]
   before_action :check_if_admin, only: [:new, :edit]
   # GET /places
   # GET /places.json
   def index
-    @places = Place.all
+    @places = Place.all.order(name: :asc).includes(:feature)
+    params.permit(:hookah, :smoke_alowed, :beer, :cocktails, :strong_alco, :kind_id, :cuisine_id)
+    Feature.column_names.each do |column|
+      if params.include? column
+        @places = @places.where("features.#{column}" => true)
+      end
+    end
+    if params[:kind_id] && params[:kind_id] != 'nil'
+      @places = @places.where(:kind_id => params[:kind_id])
+    end
+    if params[:cuisine_id] && params[:cuisine_id] != 'nil'
+      @places = @places.where(:cuisine_id => params[:cuisine_id])
+    end
   end
 
   # GET /places/1
   # GET /places/1.json
   def show
+    @reviews = Review.where(:place_id => @place.id).order(created_at: :desc)
+    puts @reviews
+  end
+
+  def new_review
+    review = Review.create(:place_id => params[:place_id].to_i, :user_id => current_user.id, :comment => params[:comment], :points => params[:points].to_i)
+    @place = Place.find(params[:place_id].to_i)
+    redirect_to @place, notice: 'Ваш отзыв отправлен.'
   end
 
   # GET /places/new
@@ -23,6 +44,7 @@ class PlacesController < ApplicationController
     @place.build_location.build_city
     @place.build_feature
     @place.build_kind
+    @place.build_rating
   end
 
   # GET /places/1/edit
@@ -42,6 +64,10 @@ class PlacesController < ApplicationController
     if !@place.kind
       @place.build_kind
     end
+
+    if !@place.rating
+      @place.build_rating
+    end
   end
 
   # POST /places
@@ -52,7 +78,6 @@ class PlacesController < ApplicationController
     respond_to do |format|
       if @place.save
         Administrator.create(user_id: current_user.id, place_id: @place.id)
-        Rating.create(place_id: @place.id)
         format.html { redirect_to @place, notice: 'Place was successfully created.' }
         format.json { render :show, status: :created, location: @place }
       else
@@ -94,6 +119,6 @@ class PlacesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def place_params
-      params.require(:place).permit(:kind_id, :cuisine_id, :name, :min_age, :open_hours, :avg_bill, :description, location_attributes: [:address, :subway, city_attributes: [:name]], feature_attributes: [:beer, :smoke_allowed, :cocktails, :hookah])
+      params.require(:place).permit(:kind_id, :cuisine_id, :name, :min_age, :open_hours, :avg_bill, :description, location_attributes: [:address, :subway, city_attributes: [:name]], feature_attributes: [:beer, :smoke_allowed, :cocktails, :hookah, :strong_alco], rating_attributes: [:stars])
     end
 end

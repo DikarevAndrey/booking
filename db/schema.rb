@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180512191232) do
+ActiveRecord::Schema.define(version: 20180512210824) do
 
   create_table "administrators", force: :cascade do |t|
     t.integer "place_id"
@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 20180512191232) do
     t.integer "place_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "strong_alco", default: false
     t.index ["place_id"], name: "index_features_on_place_id"
   end
 
