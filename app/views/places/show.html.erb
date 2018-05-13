@@ -1,51 +1,83 @@
 <div class="container">
-  <p>
-    <strong>Основная кухня:</strong>
-    <%= @place.cuisine.name %>
-  </p>
+  <div class="card text-center">
+    <div class="card-header">
+      <h1><%= @place.name %></h1>
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">Описание: <%= @place.description %></h5>
+      <p class="card-text">
+        <strong>Адрес:</strong> <%= @place.location.address %> <br>
+        <strong>Ближайшее метро:</strong> <%= @place.location.subway.name %><br>
+        <strong>Город:</strong> <%= @place.location.city.name %><br>
+        <hr>
+        <% if @place.feature.beer %>
+          <input type="checkbox" checked disabled>Пиво
+        <% else %>
+          <input type="checkbox"  disabled>Пиво
+        <% end %>
+        <% if @place.feature.smoke_allowed %>
+          <input type="checkbox" checked disabled>Курение разрешено
+        <% else %>
+          <input type="checkbox"  disabled>Курение разрешено
+        <% end %>
+        <% if @place.feature.cocktails %>
+          <input type="checkbox" checked disabled>Коктейли
+        <% else %>
+          <input type="checkbox"  disabled>Коктейли
+        <% end %>
+        <% if @place.feature.hookah %>
+          <input type="checkbox" checked disabled>Кальян
+        <% else %>
+          <input type="checkbox"  disabled>Кальян
+        <% end %>
+        <% if @place.feature.strong_alco %>
+          <input type="checkbox" checked disabled>Крепкий алкоголь
+        <% else %>
+          <input type="checkbox"  disabled>Крепкий алкоголь
+        <% end %>
+      </p>
+      <p>
+        <strong>Основная кухня:</strong>
+        <%= @place.cuisine.name %>
+      </p>
 
-  <p>
-    <strong>Звезды Мишлен:</strong>
-    <%= @place.rating.stars %>
-  </p>
+      <p>
+        <strong>Звезды Мишлен:</strong>
+        <%= @place.rating.stars %>
+      </p>
 
-  <p>
-    <strong>Вид заведения:</strong>
-    <%= @place.kind.name %>
-  </p>
+      <p>
+        <strong>Вид заведения:</strong>
+        <%= @place.kind.name %>
+      </p>
 
-  <p>
-    <strong>Название:</strong>
-    <%= @place.name %>
-  </p>
+      <p>
+        <strong>Возрастные ограничения:</strong>
+        <%= @place.min_age %>
+      </p>
 
-  <p>
-    <strong>Возрастные ограничения:</strong>
-    <%= @place.min_age %>
-  </p>
+      <p>
+        <strong>Часы работы:</strong>
+        <%= @place.open_hours %>
+      </p>
 
-  <p>
-    <strong>Часы работы:</strong>
-    <%= @place.open_hours %>
-  </p>
+      <p>
+        <strong>Средний чек:</strong>
+        <%= @place.avg_bill %>
+      </p>
 
-  <p>
-    <strong>Средний чек:</strong>
-    <%= @place.avg_bill %>
-  </p>
+      <% if signed_in? && current_user.admin == false %>
+        <%= link_to 'Забронировать', new_order_path(:place_id => @place.id), class: "btn btn-warning" %>
+      <% end %>
 
-  <p>
-    <strong>Описание:</strong>
-    <%= @place.description %>
-  </p>
-  <hr>
-  <% if signed_in? && current_user.admin == false %>
-    <%= link_to 'Забронировать', new_order_path(:place_id => @place.id), class: "btn btn-warning" %>
-  <% end %>
-
-  <% if signed_in? && current_user.admin == true && @place.id == Administrator.find_by(user_id: current_user.id).place_id %>
-    <%= link_to 'Редактировать', edit_place_path(@place), class:"btn btn-warning" %>
-  <% end %>
+      <% if signed_in? && current_user.admin == true && Administrator.exists?(:user_id => current_user.id) && @place.id == Administrator.find_by(user_id: current_user.id).place_id %>
+        <%= link_to 'Редактировать', edit_place_path(@place), class:"btn btn-warning" %>
+      <% end %>
+    </div>
+    <div class="card-footer text-muted">
+      Рейтинг: <%= @place.rating.points %>
+    </div>
+  </div>
   <hr>
   <div class="container">
     <% if signed_in? %>

@@ -12,65 +12,36 @@
   <% end %>
   
   <div class="field">
-    <%= form.label :Кухня %>
-    <%= form.collection_select :cuisine_id, Cuisine.all, :id, :name %>
+    <%= form.label :name %>
+    <%= form.text_field :name, id: :place_name %>
   </div>
-
+  
   <%= form.fields_for :kind do |kind| %>
     <div class="field">
       <%= form.label :Вид_заведения %>
       <%= form.collection_select :kind_id, Kind.all, :id, :name %>
     </div>
   <% end %>
+
+  <div class="field">
+    <%= form.label :Кухня %>
+    <%= form.collection_select :cuisine_id, Cuisine.all, :id, :name %>
+  </div>
   
-  <%= form.fields_for :rating do |rating| %>
-    <div class="field">
-      <%= form.label :Звезды_Мишлен %>
-      <%= rating.select(:stars, options_for_select([0, 1, 2, 3, 4, 5])) %>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name, id: :place_name %>
-  </div>
-
-  <div class="field">
-    <%= form.label :min_age %>
-    <%= form.number_field :min_age, id: :place_min_age %>
-  </div>
-
   <div class="field">
     <%= form.label :open_hours %>
     <%= form.text_field :open_hours, id: :place_open_hours %>
   </div>
-
+  
+  <div class="field">
+    <%= form.label :min_age %>
+    <%= form.number_field :min_age, id: :place_min_age %>
+  </div>
+  
   <div class="field">
     <%= form.label :avg_bill %>
     <%= form.number_field :avg_bill, id: :place_avg_bill %>
   </div>
-
-  <div class="field">
-    <%= form.label :description %>
-    <%= form.text_area :description, id: :place_description %>
-  </div>
-
-  <%= form.fields_for :location do |location| %>
-    <div class="field">
-      <%= form.label :address %>
-      <%= location.text_field :address %>
-    </div>
-    <div class="field">
-      <%= form.label :subway %>
-      <%= location.text_field :subway %>
-    </div>
-    <%= location.fields_for :city do |city| %>
-      <div class="field">
-        <%= form.label :city %>
-        <%= city.text_field :name %>
-      </div>
-    <% end %>
-  <% end %> 
   
   <%= form.fields_for :feature do |feature| %>
     <div class="field">
@@ -94,6 +65,39 @@
       <%= feature.check_box :strong_alco %>
     </div>
   <% end %> 
+
+  <%= form.fields_for :rating do |rating| %>
+    <div class="field">
+      <%= form.label :Звезды_Мишлен %>
+      <%= rating.select(:stars, options_for_select([0, 1, 2, 3, 4, 5])) %>
+    </div>
+  <% end %>
+
+  <%= form.fields_for :location do |location| %>
+    <div class="field">
+      <%= form.label :Адрес %>
+      <%= location.text_field :address %>
+    </div>
+    
+    <%= location.fields_for :city do |city| %>
+      <div class="field">
+        <%= form.label :Город %>
+        <%= location.collection_select :city_id, City.all, :id, :name %>
+      </div>
+    <% end %>
+
+    <%= location.fields_for :subway do |subway| %>
+      <div class="field">
+        <%= form.label :Ближайшее_метро %>
+        <%= location.collection_select :subway_id, Subway.all, :id, :name %>
+      </div>
+    <% end %>
+  <% end %> 
+  
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description, id: :place_description %>
+  </div>
 
   <div class="actions">
     <%= form.submit "Готово" %>

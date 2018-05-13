@@ -6,7 +6,7 @@ class PlacesController < ApplicationController
   # GET /places
   # GET /places.json
   def index
-    @places = Place.all.order(name: :asc).includes(:feature)
+    @places = Place.all.order(name: :asc).includes(:feature, :location)
     params.permit(:hookah, :smoke_alowed, :beer, :cocktails, :strong_alco, :kind_id, :cuisine_id)
     Feature.column_names.each do |column|
       if params.include? column
@@ -18,6 +18,12 @@ class PlacesController < ApplicationController
     end
     if params[:cuisine_id] && params[:cuisine_id] != 'nil'
       @places = @places.where(:cuisine_id => params[:cuisine_id])
+    end
+    if params[:city_id] && params[:city_id] != 'nil'
+      @places = @places.where("locations.city_id" => params[:city_id])
+    end
+    if params[:subway_id] && params[:subway_id] != 'nil'
+      @places = @places.where("locations.subway_id" => params[:subway_id])
     end
   end
 
@@ -41,7 +47,9 @@ class PlacesController < ApplicationController
     end
 
     @place = Place.new
-    @place.build_location.build_city
+    @place.build_location
+    @place.location.build_city
+    @place.location.build_subway
     @place.build_feature
     @place.build_kind
     @place.build_rating
@@ -54,7 +62,15 @@ class PlacesController < ApplicationController
     end
 
     if !@place.location
-      @place.build_location.build_city
+      @place.build_location
+    end
+
+    if !@place.location.city
+      @place.location.build_city
+    end
+
+    if !@place.location.subway
+      @place.location.build_subway
     end
 
     if !@place.feature
@@ -119,6 +135,6 @@ class PlacesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def place_params
-      params.require(:place).permit(:kind_id, :cuisine_id, :name, :min_age, :open_hours, :avg_bill, :description, location_attributes: [:address, :subway, city_attributes: [:name]], feature_attributes: [:beer, :smoke_allowed, :cocktails, :hookah, :strong_alco], rating_attributes: [:stars])
+      params.require(:place).permit(:kind_id, :cuisine_id, :name, :min_age, :open_hours, :avg_bill, :description, location_attributes: [:address, :subway_id, :city_id], feature_attributes: [:beer, :smoke_allowed, :cocktails, :hookah, :strong_alco], rating_attributes: [:stars])
     end
 end

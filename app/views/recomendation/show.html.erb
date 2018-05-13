@@ -1,21 +1,22 @@
 <div class="container">
-  <h1>Recomendation#show</h1>
-  <p>Find me in app/views/recomendation/show.html.erb</p>
   <% if !@user_recomendation %>
-    <p>У вас еще не было бронирований. Чтобы получать рекомендации, резервируйте столики.</p>
+    <h1>У вас еще не было бронирований. Чтобы получать рекомендации, резервируйте столики.</h1>
   <% else %>
-    Любимое заведение: 
-    <%= link_to @fav_place.name, @fav_place %>
+    <h1>Рекомендуем Вам:</h1>
+    <div class="row">
+      <h3>Заведение:</h3>
+        <%= render @fav_place %>
+    </div>
     <hr>
-    Рекомендованная кухня: <%= @user_recomendation.cuisine.name %> <br>
-    <% @fav_cuisine_places.each do |place| %>
-      <%= link_to place.name, place %>
-    <% end %>
+    <div class="row">
+      <h3>Кухня:<small class="text-muted"><%= @user_recomendation.cuisine.name %></small></h3><br>
+        <%= render @fav_cuisine_places %>
+    </div>
     <hr>
-    Рекомендованный вид заведения: <%= @user_recomendation.kind.name %> <br>
-    <% @fav_kind_places.each do |place| %>
-      <%= link_to place.name, place %>
-    <% end %>
+    <div class="row">
+      <h3>Вид заведения:<small class="text-muted"><%= @user_recomendation.kind.name %></small></h3><br>
+      <%= render @fav_kind_places %>
+    </div>
     <hr>
   <% end %>
 </div>

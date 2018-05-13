@@ -1,0 +1,25 @@
+<div class="col-md-4">
+  <div class="card mb-4 box-shadow">
+    <div class="card-body">
+      <p class="card-text"><strong>Название:</strong> <%= place.name %></p>
+      <p class="card-text"><strong>Вид заведения:</strong> <%= place.kind.name %></p>
+      <p class="card-text"><strong>Рейтинг:</strong> <%= place.rating.points %></p>
+      <p class="card-text"><strong>Часы работы:</strong> <%= place.open_hours %></p>
+      <p class="card-text"><strong>Основная кухня:</strong> <%= place.cuisine.name %></p>
+      <p class="card-text"><strong>Город:</strong> <%= place.location.city.name %></p>
+      <p class="card-text"><strong>Ближайшее метро:</strong> <%= place.location.subway.name %></p>
+      <p class="card-text"><strong>Средний чек:</strong> <%= place.avg_bill %></p>
+      <p class="card-text"><strong>Возрастные ограничения:</strong> <%= place.min_age %></p>
+      <p class="card-text"><strong>Звезды Мишлен:</strong> <%= place.rating.stars %></p>
+      <p class="card-text"><strong>Описание:</strong> <%= place.description %></p>
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="btn-group">
+          <%= link_to 'Показать', place, class: "btn btn-primary" %>
+          <% if signed_in? && current_user.admin == true && Administrator.exists?(:user_id => current_user.id) && place.id == Administrator.find_by(user_id: current_user.id).place_id %>
+            <%= link_to 'Редактировать', edit_place_path(place), class: "btn btn-warning" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

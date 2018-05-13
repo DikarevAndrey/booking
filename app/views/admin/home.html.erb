@@ -6,7 +6,9 @@
     <div class="card-body">
       <h5 class="card-title"><%= @place.description %></h5>
       <p class="card-text">
-        <%= @place.location.address %>, <%= @place.location.subway %>
+        <strong>Адрес:</strong> <%= @place.location.address %> <br>
+        <strong>Ближайшее метро:</strong> <%= @place.location.subway.name %><br>
+        <strong>Город:</strong> <%= @place.location.city.name %><br>
         <hr>
         <% if @place.feature.beer %>
           <input type="checkbox" checked disabled>Пиво
