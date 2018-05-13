@@ -1,8 +1,7 @@
 <div class="col-md-4">
   <div class="card mb-4 box-shadow">
     <div class="card-body">
-      <p class="card-text"><strong>Название:</strong> <%= place.name %></p>
-      <p class="card-text"><strong>Вид заведения:</strong> <%= place.kind.name %></p>
+      <p class="card-text"><strong>Название:</strong> <%= place.kind.name %> <%= place.name %></p>
       <p class="card-text"><strong>Рейтинг:</strong> <%= place.rating.points %></p>
       <p class="card-text"><strong>Часы работы:</strong> <%= place.open_hours %></p>
       <p class="card-text"><strong>Основная кухня:</strong> <%= place.cuisine.name %></p>
@@ -10,7 +9,6 @@
       <p class="card-text"><strong>Ближайшее метро:</strong> <%= place.location.subway.name %></p>
       <p class="card-text"><strong>Средний чек:</strong> <%= place.avg_bill %></p>
       <p class="card-text"><strong>Возрастные ограничения:</strong> <%= place.min_age %></p>
-      <p class="card-text"><strong>Звезды Мишлен:</strong> <%= place.rating.stars %></p>
       <p class="card-text"><strong>Описание:</strong> <%= place.description %></p>
       <div class="d-flex justify-content-between align-items-center">
         <div class="btn-group">
