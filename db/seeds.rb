@@ -11,6 +11,7 @@ cities_list.each do |name|
 end
 
 subways_list = [
+  "Нет",
   "Таганская",
   "Волжская",
   "Бауманская",
@@ -37,6 +38,7 @@ kinds_list.each do |name|
 end
 
 cuisines_list = [
+  "Нет",
   "Итальянская",
   "Французская",
   "Русская",

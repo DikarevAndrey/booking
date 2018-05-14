@@ -1,6 +1,11 @@
 <div class="container">
   <h1>Поиск</h1>
+  <hr>
   <div class="row">
-    <%= render @search_places %>
+    <% if @search_places == [] %>
+      <h4>По вашему запросу ничего не найдено. Попробуйте изменить критерии поиска.</h4>
+    <% else %>
+      <%= render @search_places %>
+    <% end %>
   </div>
 </div>

@@ -93,7 +93,7 @@ class PlacesController < ApplicationController
     respond_to do |format|
       if @place.save
         Administrator.create(user_id: current_user.id, place_id: @place.id)
-        format.html { redirect_to @place, notice: 'Place was successfully created.' }
+        format.html { redirect_to @place, notice: 'Заведение добавлено.' }
         format.json { render :show, status: :created, location: @place }
       else
         format.html { render :new }
@@ -107,7 +107,7 @@ class PlacesController < ApplicationController
   def update
     respond_to do |format|
       if @place.update(place_params)
-        format.html { redirect_to @place, notice: 'Place was successfully updated.' }
+        format.html { redirect_to @place, notice: 'Информация обновлена.' }
         format.json { render :show, status: :ok, location: @place }
       else
         format.html { render :edit }
@@ -129,7 +129,11 @@ class PlacesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_place
-      @place = Place.find(params[:id])
+      if Place.exists?(params[:id])
+        @place = Place.find(params[:id])
+      else
+        redirect_to root_path, :flash => { :error => "Такого заведения не существует." }
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

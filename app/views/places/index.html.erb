@@ -1,13 +1,20 @@
 <div class="container">
   <h1>Заведения</h1>
+  <hr>
   <div class="row">
     <div class="col-md-10">
       <div class="row">
-        <%= render @places %>
+        <% if @places == [] %>
+          <h4>По вашему запросу ничего не найдено. Попробуйте изменить критерии поиска.</h4>
+        <% else %>
+          <%= render @places %>
+        <% end %>
       </div>
     </div>
 
     <div class="col-md-2">
+      <h6>Критерии поиска:</h6>
+      <hr>
       <form action="places" method="get">
         <div class="form-check">
           <input class="form-check-input" type="checkbox" id="beer" name="beer">
