@@ -28,6 +28,17 @@ class OrdersController < ApplicationController
     end
   end
 
+  def destroy
+    if Order.exists?(params[:id])
+      order = Order.find(params[:id])
+      puts order
+      order.destroy
+      redirect_to user_url(current_user), :flash => { :notice => "Бронь отменена." }
+    else
+      redirect_to root_path, :flash => { :error => "Ошибка." }
+    end
+  end
+
   private
 
   def set_place
