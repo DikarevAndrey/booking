@@ -43,6 +43,11 @@
     <%= form.number_field :avg_bill, id: :place_avg_bill %>
   </div>
   
+  <div class="field">
+    <%= form.label :Количество_столиков %>
+    <%= form.number_field :seats_count, id: :place_seats_count %>
+  </div>
+
   <%= form.fields_for :feature do |feature| %>
     <div class="field">
       <%= form.label 'Пиво' %>

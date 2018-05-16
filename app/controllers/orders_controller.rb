@@ -13,9 +13,13 @@ class OrdersController < ApplicationController
   end
 
   def create
-    puts 
     @order = Order.new(order_params)
     @order.user_id = current_user.id
+    reserved_count = Order.where("place_id = :order_place_id AND visit_date_time >= :time_start AND visit_date_time <= :time_end", {order_place_id: @order.place_id, time_start: @order.visit_date_time - 7200, time_end: @order.visit_date_time + 7200}).count
+
+    if @order.place.seats_count - reserved_count < @order.guests_count
+      redirect_to new_order_path(:place_id => @order.place_id), :flash => { :error => "На это время все столики зарезервированы." } and return
+    end
 
     respond_to do |format|
       if @order.save

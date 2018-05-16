@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180513090859) do
+ActiveRecord::Schema.define(version: 20180516151021) do
 
   create_table "administrators", force: :cascade do |t|
     t.integer "place_id"
@@ -95,6 +95,7 @@ ActiveRecord::Schema.define(version: 20180513090859) do
     t.datetime "updated_at", null: false
     t.integer "kind_id"
     t.integer "cuisine_id"
+    t.integer "seats_count"
     t.index ["cuisine_id"], name: "index_places_on_cuisine_id"
     t.index ["kind_id"], name: "index_places_on_kind_id"
   end

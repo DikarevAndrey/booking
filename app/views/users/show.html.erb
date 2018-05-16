@@ -38,9 +38,9 @@
           <tr>
             <th scope="row"><%= index + 1 %></th>
             <td>
-              <%= link_to booking.place.name, booking.place %> |  
+              <%= link_to booking.place.name, booking.place %>
               <% if DateTime.now < booking.visit_date_time %>
-                <%=link_to "Отменить", order_path(booking), :method => :delete, data: {confirm: "Вы уверены?"} %>
+                 | <%=link_to "Отменить", order_path(booking), :method => :delete, data: {confirm: "Вы уверены?"} %>
               <% end %> 
               </td>
             <td><%= booking.visit_date_time.to_date %>, <%= booking.visit_date_time.strftime('%H:%M') %></td>

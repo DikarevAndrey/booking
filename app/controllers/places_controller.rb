@@ -139,6 +139,6 @@ class PlacesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def place_params
-      params.require(:place).permit(:kind_id, :cuisine_id, :name, :min_age, :open_hours, :avg_bill, :description, location_attributes: [:address, :subway_id, :city_id], feature_attributes: [:beer, :smoke_allowed, :cocktails, :hookah, :strong_alco], rating_attributes: [:stars])
+      params.require(:place).permit(:kind_id, :seats_count, :cuisine_id, :name, :min_age, :open_hours, :avg_bill, :description, location_attributes: [:address, :subway_id, :city_id], feature_attributes: [:beer, :smoke_allowed, :cocktails, :hookah, :strong_alco], rating_attributes: [:stars])
     end
 end
