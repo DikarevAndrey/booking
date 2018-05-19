@@ -1,4 +1,5 @@
 <div class="container">
-  <h1>Бронирование</h1>
+  <h1>Бронирование в заведении <i><%= @place.name %></i></h1>
+  <hr>
   <%= render 'form', orders: @order, place_id: @place.id %>
 </div>

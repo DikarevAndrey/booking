@@ -1,7 +1,8 @@
 class SearchController < ApplicationController
 
   def list
-    @search_places = Place.where("name like ?", "%#{search_params[:q]}%")
+    @query = search_params[:q]
+    @search_places = Place.where("name like ?", "%#{@query}%")
   end
 
   private

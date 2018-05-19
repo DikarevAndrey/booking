@@ -79,28 +79,30 @@
     </div>
   </div>
   <hr>
-  <div class="container">
-    <h3>Акции</h3>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Название</th>
-          <th scope="col">Описание</th>
-        </tr>
-      </thead>
-      <% @offers.each_with_index do |offer, index| %>
-        <% if offer.is_active %>
+  <% if !@offers.empty? %>
+    <div class="container">
+      <h3>Акции</h3>
+      <table class="table table-striped">
+        <thead>
           <tr>
-            <td><%= index + 1 %></td>
-            <td><%= offer.name %></td>
-            <td><%= offer.content %></td>
+            <th scope="col">#</th>
+            <th scope="col">Название</th>
+            <th scope="col">Описание</th>
           </tr>
+        </thead>
+        <% @offers.each_with_index do |offer, index| %>
+          <% if offer.is_active %>
+            <tr>
+              <td><%= index + 1 %></td>
+              <td><%= offer.name %></td>
+              <td><%= offer.content %></td>
+            </tr>
+          <% end %>
         <% end %>
-      <% end %>
-    </table>
-  </div>
-  <hr>
+      </table>
+    </div>
+    <hr>
+  <% end %>
   <div class="container">
     <% if signed_in? && !current_user.admin && Order.exists?(:place_id => @place.id, :user_id => current_user.id) && !Review.exists?(:place_id => @place.id, :user_id => current_user.id) %>
       <h3>Оставить отзыв:</h3>

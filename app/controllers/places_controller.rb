@@ -31,7 +31,7 @@ class PlacesController < ApplicationController
   # GET /places/1.json
   def show
     @reviews = Review.where(:place_id => @place.id).order(created_at: :desc)
-    @offers = Offer.where(place_id: @place.id)
+    @offers = Offer.where(:place_id => @place.id).where(:is_active => true)
   end
 
   def new_review

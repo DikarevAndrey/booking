@@ -24,6 +24,6 @@ class UsersController < ApplicationController
   private
 
   def set_orders
-    @bookings = Order.where(:user_id => params[:id])
+    @bookings = Order.where(:user_id => params[:id]).order(visit_date_time: :desc)
   end
 end
