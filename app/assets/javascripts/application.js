@@ -16,6 +16,9 @@
 //= require jquery3
 //= require popper
 //= require bootstrap-sprockets
+//= require Chart.bundle
+//= require chartkick
+
 //Fade out flash messages
 $(document).on('turbolinks:load', function() {
   $(".flash-message").fadeOut( 4000, function() {

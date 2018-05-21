@@ -56,3 +56,5 @@ gem 'devise'
 gem 'sprockets-rails', :require => 'sprockets/railtie'
 gem 'bootstrap', '~> 4.1.0'
 gem 'jquery-rails'
+gem "chartkick"
+gem 'groupdate'

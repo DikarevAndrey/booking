@@ -44,6 +44,19 @@
     </div>
   </div>
   <hr>
+  <form action="<%= request.original_url %>">
+    <label for="days">Количество дней</label>
+    <input type="number" name="days" value="<%= params[:days] %>">
+    <input type="submit" value="Показать статистику">
+  </form>
+  <% if params[:days] %>
+    <% @days = params[:days].to_i %>
+  <% else %>
+    <% @days = 7 %>
+  <% end %>
+  <h1>Статистика бронирований за последние <%= @days %> дней:</h1>
+  <%= line_chart Order.where(:place_id => @place.id).where("visit_date_time >= :date", :date => @days.to_i.days.ago.to_date).where("visit_date_time <= :date", :date => Date.today).group_by_day(:visit_date_time).count, xtitle: "День", ytitle: "Количество бронирований", messages: {empty: "Бронирований не было"}, download: "#{@place.name}_#{@days.to_i.days.ago.to_date}-#{Date.today}_reservations" %>
+  <hr>
   <h1>
     Акции
     <small class="text-muted"><%= link_to "Новая акция", new_offer_path %></small>
